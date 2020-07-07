@@ -116,7 +116,7 @@ int enqueue(struct queue_t * q, ELEMENT_TYPE value)
 static inline int backtracking(struct queue_t * q)
 {
 	uint32_t tmp_tail;
-	tmp_tail = q->tail + CONS_BATCH_SIZE;
+	tmp_tail = q->tail + CONS_BATCH_SIZE - 1;
 	if ( tmp_tail >= QUEUE_SIZE ) {
 		tmp_tail = 0;
 #if defined(ADAPTIVE)
@@ -135,9 +135,10 @@ static inline int backtracking(struct queue_t * q)
 
 		wait_ticks(CONGESTION_PENALTY);
 
-		batch_size = batch_size >> 1;
-		if( batch_size >= 0 ) {
-			tmp_tail = q->tail + batch_size;
+		// TODO verify logic
+		if( batch_size > 1) {
+			batch_size = batch_size >> 1;
+			tmp_tail = q->tail + batch_size -1;
 			if (tmp_tail >= QUEUE_SIZE)
 				tmp_tail = 0;
 		}
