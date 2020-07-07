@@ -32,6 +32,9 @@ CFLAGS += -DADAPTIVE
 #CFLAGS += -DWORKLOAD_DEBUG
 #CFLAGS += -DINCURE_DEBUG
 
+# https://gcc.gnu.org/gcc-5/porting_to.html
+CFLAGS += -fgnu89-inline 
+
 ORG = fifo.o main.o workload.o
 
 fifo: $(ORG) $(LIB) test_cycle

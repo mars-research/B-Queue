@@ -61,7 +61,9 @@ void * consumer(void *arg)
 	ELEMENT_TYPE	value;
 	cpu_set_t	cur_mask;
 	uint64_t	i;
+#if defined(WORKLOAD_DEBUG)
 	unsigned long	seed;
+#endif
 #if defined(FIFO_DEBUG)
 	ELEMENT_TYPE	old_value = 0; 
 #endif
@@ -86,7 +88,9 @@ void * consumer(void *arg)
 		return NULL;
 	}
 
+#if defined(WORKLOAD_DEBUG)
 	seed = read_tsc();
+#endif
 
 	printf("Consumer created...\n");
 	pthread_barrier_wait(barrier);
